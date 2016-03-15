@@ -68,7 +68,6 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
                 action: "getUpcoming"
             }
         }).success(function(data){
-            VideosService.upcoming = data;
 
             if(typeof data[0] !== 'undefined'){
                 service.launchPlayer(data[0].id, data[0].title);
