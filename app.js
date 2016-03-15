@@ -122,7 +122,8 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
       $http.get('juketube.php', {
           params: {
               action: "queueVideo",
-              id: id
+              id: id,
+              title: title
           }
       }).success(function(data){
           upcoming.push({
@@ -194,7 +195,7 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     function init() {
       $scope.youtube = VideosService.getYoutube();
       $scope.results = VideosService.getResults();
-      $scope.upcoming = VideosService.getUpcoming();
+      $scope.upcoming = this.upcoming;
       $scope.history = VideosService.getHistory();
       $scope.playlist = true;
     }
