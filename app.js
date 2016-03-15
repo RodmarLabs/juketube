@@ -62,9 +62,37 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
       youtube.state = 'paused';
     } else if (event.data == YT.PlayerState.ENDED) {
       youtube.state = 'ended';
-      service.launchPlayer(upcoming[0].id, upcoming[0].title);
-      service.archiveVideo(upcoming[0].id, upcoming[0].title);
-      service.deleteVideo(upcoming, upcoming[0].id);
+
+        $http.get('juketube.php', {
+            params: {
+                action: "getUpcoming"
+            }
+        }).success(function(data){
+            VideosService.upcoming = data;
+
+            if(typeof data[0] !== 'undefined'){
+                service.launchPlayer(data[0].id, data[0].title);
+                service.archiveVideo(data[0].id, data[0].title);
+
+                $http.get('juketube.php', {
+                    params: {
+                        action: "deleteVideo",
+                        id: data[0].id
+                    }
+                }).success(function(data){
+                    $log.info(data);
+                }).error(function(){
+                    $log.info('Error!');
+                });
+
+            }
+
+        }).error(function(){
+            return upcoming;
+        });
+
+
+
     }
     $rootScope.$apply();
   }
