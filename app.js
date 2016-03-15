@@ -150,17 +150,6 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
   };
 
   this.deleteVideo = function (list, id) {
-      $http.get('juketube.php', {
-          params: {
-              action: "deleteVideo",
-              id: id
-          }
-      }).success(function(data){
-          $log.info(data);
-      }).error(function(){
-          $log.info('Error!');
-      });
-
     for (var i = list.length - 1; i >= 0; i--) {
       if (list[i].id === id) {
         list.splice(i, 1);
@@ -216,6 +205,18 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
       VideosService.launchPlayer(id, title);
       VideosService.archiveVideo(id, title);
       VideosService.deleteVideo(VideosService.upcoming, id);
+
+        $http.get('juketube.php', {
+            params: {
+                action: "deleteVideo",
+                id: id
+            }
+        }).success(function(data){
+            $log.info(data);
+        }).error(function(){
+            $log.info('Error!');
+        });
+
       $log.info('Launched id:' + id + ' and title:' + title);
     };
 
@@ -226,6 +227,17 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     };
 
     $scope.delete = function (list, id) {
+        $http.get('juketube.php', {
+            params: {
+                action: "deleteVideo",
+                id: id
+            }
+        }).success(function(data){
+            $log.info(data);
+        }).error(function(){
+            $log.info('Error!');
+        });
+
         VideosService.deleteVideo(list, id);
     };
 
