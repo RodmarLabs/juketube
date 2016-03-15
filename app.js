@@ -34,7 +34,7 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
   var results = [];
   var upcoming = [];
   var history = [
-    { id: 'j_DAazxoodM', 'title': 'Penny Lane - The Beatles - lyrics' }
+    //{ id: 'j_DAazxoodM', 'title': 'Penny Lane - The Beatles - lyrics' }
   ];
 
   $window.onYouTubeIframeAPIReady = function () {
@@ -147,17 +147,6 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
   };
 
   this.deleteVideo = function (list, id) {
-      $http.get('juketube.php', {
-          params: {
-              action: "deleteVideo",
-              id: id
-          }
-      }).success(function(data){
-          $log.info(data);
-      }).error(function(){
-          $log.info('Error!');
-      });
-
     for (var i = list.length - 1; i >= 0; i--) {
       if (list[i].id === id) {
         list.splice(i, 1);
@@ -224,7 +213,18 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     };
 
     $scope.delete = function (list, id) {
-      VideosService.deleteVideo(list, id);
+        $http.get('juketube.php', {
+            params: {
+                action: "deleteVideo",
+                id: id
+            }
+        }).success(function(data){
+            $log.info(data);
+        }).error(function(){
+            $log.info('Error!');
+        });
+
+        VideosService.deleteVideo(list, id);
     };
 
     $scope.search = function () {
