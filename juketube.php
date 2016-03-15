@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 }
 
 if($action == 'getUpcoming'){
-    $sql = "SELECT * FROM queue ORDER BY queue_at DESC";
+    $sql = "SELECT * FROM queue ORDER BY queue_at ASC";
 
     $result = $conn->query($sql);
     $resultArray = array();
