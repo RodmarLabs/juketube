@@ -33,16 +33,16 @@ app.service('VideosService', ['$window', '$rootScope', '$log', function ($window
   };
   var results = [];
   var upcoming = [
-    {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
-    {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
-    {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
-    {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
-    {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
-    {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
-    {id: 'fTK4XTvZWmk', title: 'Housse De Racket â˜â˜€â˜ Apocalypso'}
+    //{id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
+    //{id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
+    //{id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
+    //{id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
+    //{id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
+    //{id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
+    //{id: 'fTK4XTvZWmk', title: 'Housse De Racket â˜â˜€â˜ Apocalypso'}
   ];
   var history = [
-    {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
+    //{id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
   ];
 
   $window.onYouTubeIframeAPIReady = function () {
@@ -202,7 +202,7 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     $scope.search = function () {
       $http.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
-          key: 'AIzaSyD2K6OooNWMPgEWlkAkgAIRctksFyKk1vY',
+          key: 'AIzaSyBILVbchuGXdecG83Nlgd2XnDovL8YUUvw',
           type: 'video',
           maxResults: '8',
           part: 'id,snippet',
