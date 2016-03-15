@@ -37,11 +37,16 @@ if($action == 'getUpcoming'){
 
 if($action == 'deleteVideo'){
     $id = $_GET['id'];
-    $sql = "DELETE queue WHERE id = '". id ."''";
+    $sql = "DELETE FROM queue WHERE id = '". $id ."'";
     $result = $conn->query($sql);
 
+    if($result){
+        echo json_encode(array('code' => 200, 'message' => 'Video deleted!'));
+    }else{
+        echo json_encode(array('code' => 500, 'message' => 'Error deleting video!', 'sql' => $sql));
+    }
+
     $conn->close();
-    echo json_encode(array('code' => 200, 'message' => 'Video deleted!'));
     exit;
 }
 

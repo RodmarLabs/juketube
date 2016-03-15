@@ -47,9 +47,12 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
 
   function onYoutubeReady (event) {
     $log.info('YouTube Player is ready');
-    youtube.player.cueVideoById(history[0].id);
-    youtube.videoId = history[0].id;
-    youtube.videoTitle = history[0].title;
+
+      if(typeof history[0] !== 'undefined'){
+          youtube.player.cueVideoById(history[0].id);
+          youtube.videoId = history[0].id;
+          youtube.videoTitle = history[0].title;
+      }
   }
 
   function onYoutubeStateChange (event) {
@@ -165,19 +168,7 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
   };
 
   this.getUpcoming = function () {
-      $http.get('juketube.php', {
-          params: {
-              action: "getUpcoming"
-          }
-      }).success(function(data){
-         if(data){
-             return data;
-         }else{
-             return upcoming;
-         }
-      }).error(function(){
-          return upcoming;
-      });
+      return upcoming;
   };
 
   this.getHistory = function () {
@@ -193,18 +184,29 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     init();
 
     function init() {
-      $scope.youtube = VideosService.getYoutube();
-      $scope.results = VideosService.getResults();
-      $scope.upcoming = this.upcoming;
-      $scope.history = VideosService.getHistory();
-      $scope.playlist = true;
+        $http.get('juketube.php', {
+            params: {
+                action: "getUpcoming"
+            }
+        }).success(function(data){
+            $scope.youtube = VideosService.getYoutube();
+            $scope.results = VideosService.getResults();
+            $scope.upcoming = data;
+            $scope.history = VideosService.getHistory();
+            $scope.playlist = true;
+
+        }).error(function(){
+            return upcoming;
+        });
     }
 
     $scope.launch = function (id, title) {
       VideosService.launchPlayer(id, title);
       VideosService.archiveVideo(id, title);
-      VideosService.deleteVideo($scope.upcoming, id);
+      VideosService.deleteVideo(VideosService.upcoming, id);
       $log.info('Launched id:' + id + ' and title:' + title);
+
+
     };
 
     $scope.queue = function (id, title) {
