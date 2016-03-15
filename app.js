@@ -199,10 +199,11 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
                 action: "getUpcoming"
             }
         }).success(function(data){
+            VideosService.upcoming = data;
+
             $scope.youtube = VideosService.getYoutube();
             $scope.results = VideosService.getResults();
-            VideosService.upcoming = data;
-            $scope.upcoming = data;
+            $scope.upcoming = VideosService.upcoming;
             $scope.history = VideosService.getHistory();
             $scope.playlist = true;
 
