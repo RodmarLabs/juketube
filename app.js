@@ -121,6 +121,10 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
   }
 
   this.queueVideo = function (id, title) {
+      upcoming.push({
+          id: id,
+          title: title
+      });
 
       $http.get('juketube.php', {
           params: {
@@ -132,11 +136,6 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
           $log.info(data);
       }).error(function(){
           $log.info('Error!');
-      });
-
-      upcoming.push({
-          id: id,
-          title: title
       });
 
       return upcoming;
