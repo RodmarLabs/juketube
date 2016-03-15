@@ -70,6 +70,7 @@ app.service('VideosService', ['$window', '$rootScope', '$log', '$http', function
         }).success(function(data){
 
             if(typeof data[0] !== 'undefined'){
+                upcoming = data;
                 service.launchPlayer(data[0].id, data[0].title);
                 service.archiveVideo(data[0].id, data[0].title);
 
