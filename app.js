@@ -224,6 +224,19 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
       VideosService.queueVideo(id, title);
       VideosService.deleteVideo($scope.history, id);
       $log.info('Queued id:' + id + ' and title:' + title);
+
+
+
+        $http.get('juketube.php', {
+            params: {
+                action: "getUpcoming"
+            }
+        }).success(function(data){
+            VideosService.upcoming = data;
+            $scope.upcoming = VideosService.upcoming;
+        }).error(function(){
+            return upcoming;
+        });
     };
 
     $scope.delete = function (list, id) {
